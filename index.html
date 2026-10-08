@@ -252,7 +252,7 @@ body {
 }
 .dv-steps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.2rem; position: relative; z-index: 1;
 }
 .dv-step {
@@ -714,6 +714,66 @@ body {
   animation: dvSpin .7s linear infinite;
 }
 @keyframes dvSpin { to { transform: rotate(360deg); } }
+
+/* ══════════════════════════════════════════════
+   AJUSTES PARA CELULAR (van al final para que no los pisen otras reglas)
+══════════════════════════════════════════════ */
+html, body { overflow-x: hidden; }
+@media (max-width: 900px) {
+  .dv-turno-inner { grid-template-columns: 1fr; }
+  .dv-steps-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .dv-steps-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .dv-container { padding: 0 1.1rem; }
+  .dv-services, .dv-faq, .dv-turno { padding: 3.5rem 0; }
+  .dv-section-header { margin-bottom: 2rem; }
+  .dv-section-header h2 { font-size: 1.9rem; }
+
+  /* Portada */
+  .dv-hero h1 { font-size: 2.3rem; line-height: 1.12; }
+  .dv-hero p { font-size: 1rem; line-height: 1.6; }
+  .dv-hero-actions { flex-direction: column; align-items: stretch; gap: .8rem; }
+  .dv-hero-actions a { text-align: center; justify-content: center; }
+  .dv-hero-stats { gap: 1.4rem 2rem; margin-top: 2.2rem; }
+
+  /* Turnos: una sola columna y campos cómodos */
+  .dv-turno-inner { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+  .dv-turno-panel { padding: 1.3rem; }
+  .dv-field-row { grid-template-columns: 1fr; gap: .9rem; }
+  .dv-cal-grid { gap: .25rem; }
+  .dv-turno-inner > *, .dv-asistente-inner > * { min-width: 0; }
+  .dv-cal-day { aspect-ratio: auto; height: 40px; min-width: 0; font-size: .95rem; }
+  .dv-chat-bar input, .dv-bi input { min-width: 0; }
+  .dv-slots { grid-template-columns: repeat(3, 1fr); }
+  .dv-slot { min-height: 44px; font-size: .95rem; }
+
+  /* Evita el zoom automático del iPhone al tocar un campo (necesita 16px) */
+  input, select, textarea { font-size: 16px !important; }
+  .dv-turno-submit, .dv-btn-primary, .dv-btn-secondary, .dv-btn-dark { min-height: 48px; }
+
+  /* Chat a pantalla completa */
+  #dv-bot-win {
+    inset: 0; width: 100vw; height: 100vh; height: 100dvh; max-height: none;
+    border-radius: 0; border: 0; right: 0; bottom: 0;
+  }
+  #dv-bot-btn.open { display: none; }
+  .dv-bh { padding-top: max(.9rem, env(safe-area-inset-top)); }
+  .dv-bi { padding-bottom: max(.8rem, env(safe-area-inset-bottom)); }
+  .dv-bh-close { font-size: 1.5rem; padding: .4rem .6rem; }
+  .dv-bm { font-size: 1rem; }
+  .dv-bbl { max-width: 88%; font-size: .98rem; line-height: 1.5; }
+}
+@media (max-width: 360px) {
+  .dv-container { padding: 0 .8rem; }
+  .dv-turno-panel { padding: 1rem .8rem; }
+  .dv-cal-grid { gap: .15rem; }
+  .dv-cal-day { height: 36px; font-size: .85rem; }
+  .dv-hero h1 { font-size: 2rem; }
+  .dv-section-header h2 { font-size: 1.6rem; }
+}
 </style>
 </head>
 <body>
@@ -810,31 +870,36 @@ body {
     <div class="dv-section-header dv-reveal">
       <span class="dv-tag">Proceso</span>
       <h2 style="color:#fff;margin-top:.8rem">¿Cómo funciona el asistente?</h2>
-      <p>Cuestionario de seguridad previo a la RM en 5 pasos simples</p>
+      <p>Del turno a la revisión médica en 6 pasos simples</p>
     </div>
     <div class="dv-steps-grid">
       <div class="dv-step dv-reveal">
         <div class="dv-step-num">01</div>
-        <h3>Iniciás la consulta</h3>
-        <p>Abrís el asistente desde la web, sin descargar nada.</p>
+        <h3>Reservás tu turno</h3>
+        <p>Elegís fecha y horario en la web y recibís la confirmación por mail. <a href="#turnos" style="color:var(--teal);font-weight:600;text-decoration:none">Sacar turno →</a></p>
       </div>
       <div class="dv-step dv-reveal">
         <div class="dv-step-num">02</div>
+        <h3>Iniciás la consulta</h3>
+        <p>Abrís el asistente desde la web o desde el mail de confirmación, sin descargar nada.</p>
+      </div>
+      <div class="dv-step dv-reveal">
+        <div class="dv-step-num">03</div>
         <h3>Cuestionario de seguridad</h3>
         <p>Respondés 11 preguntas de seguridad, una por vez, de forma conversacional.</p>
       </div>
       <div class="dv-step dv-reveal">
-        <div class="dv-step-num">03</div>
+        <div class="dv-step-num">04</div>
         <h3>Declarás tu implante</h3>
         <p>Si tenés un implante, indicás marca y modelo y podés aportar el certificado: el OCR extrae su texto.</p>
       </div>
       <div class="dv-step dv-reveal">
-        <div class="dv-step-num">04</div>
+        <div class="dv-step-num">05</div>
         <h3>Alerta al equipo médico</h3>
         <p>Cada implante declarado genera una alerta y un aviso por mail al evaluador.</p>
       </div>
       <div class="dv-step dv-reveal">
-        <div class="dv-step-num">05</div>
+        <div class="dv-step-num">06</div>
         <h3>Revisión antes del turno</h3>
         <p>Tus respuestas quedan registradas y el personal autorizado decide la compatibilidad.</p>
       </div>
